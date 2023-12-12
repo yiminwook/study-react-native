@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, View, Text, useColorScheme, Platform } from 'react-native';
+import InputForm from '../components/InputForm';
 
 const Main = () => {
   const theme = useColorScheme();
@@ -14,6 +15,7 @@ const Main = () => {
       <View style={styles.listView}>
         <Text style={styles.listTitle}>완료된 일</Text>
       </View>
+      <InputForm />
     </SafeAreaView>
   );
 };
