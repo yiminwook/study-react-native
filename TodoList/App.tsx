@@ -1,10 +1,14 @@
 import React from 'react';
 import Main from './screens/Main';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const App = () => {
   return (
     <>
-      <Main />
+      <Provider store={store}>
+        <Main />
+      </Provider>
     </>
   );
 };

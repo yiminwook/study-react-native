@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, View, Text, useColorScheme, Platform } from 'react-native';
 import InputForm from '../components/InputForm';
-import CheckBox from '../assets/checkBox.svg';
+import TodoItem from '../components/TodoItem';
 
 const Main = () => {
   const theme = useColorScheme();
@@ -11,6 +11,7 @@ const Main = () => {
       <Text style={styles.pageTitle}>Todo App</Text>
       <View style={styles.listView}>
         <Text style={styles.listTitle}>할 일</Text>
+        <TodoItem />
       </View>
       <View style={styles.separator} />
       <View style={styles.listView}>
