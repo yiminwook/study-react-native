@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput } from 'react-native';
-import { useDispatch } from 'react-redux';
 import { addTodo } from '../redux/slice/todoSlice';
+import { useDispatch } from '../redux/store';
 
 const InputForm = () => {
   const [currentValue, setCurrentValue] = useState('');
@@ -18,6 +18,7 @@ const InputForm = () => {
     dispatch(addTodo({ text: currentValue }));
     setCurrentValue(() => '');
   };
+
   return (
     <KeyboardAvoidingView style={styles.addFormContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TextInput
