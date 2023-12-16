@@ -3,8 +3,9 @@ import { SafeAreaView, StatusBar, StyleSheet, View, Text, useColorScheme, Platfo
 import InputForm from '../components/InputForm';
 import TodoItem from '../components/TodoItem';
 import { useSelector } from '../redux/store';
+import { ScreenProps } from '../types/Navigation';
 
-const Main = () => {
+const Main = ({ route, navigation }: ScreenProps<'Main'>) => {
   const theme = useColorScheme();
   const todos = useSelector(state => state.todo.todos);
   const completedTodos = todos.filter(todo => todo.isDone);
