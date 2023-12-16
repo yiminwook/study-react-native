@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface Todo {
+export interface Todo {
   id: number;
   text: string;
   isDone: boolean;
@@ -20,20 +20,20 @@ const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    addTodo: ({ todos, currentId }, action: PayloadAction<{ text: string }>) => {
-      todos.push({
-        id: currentId++,
+    addTodo: (state, action: PayloadAction<{ text: string }>) => {
+      state.todos.push({
+        id: state.currentId++,
         text: action.payload.text.trim(),
         isDone: false,
       });
     },
-    updateTodo: ({ todos }, action: PayloadAction<{ id: number }>) => {
+    updateTodo: ({ todos }, action: PayloadAction<{ id: number; isDone: boolean }>) => {
       const index = findId(todos, action.payload.id);
       if (index === -1) {
         return;
       }
       const currentTodo = todos.splice(index, 1)[0];
-      currentTodo.isDone = !currentTodo.isDone;
+      currentTodo.isDone = action.payload.isDone;
       todos.push(currentTodo);
     },
     deleteTodo: ({ todos }, action: PayloadAction<{ id: number }>) => {
