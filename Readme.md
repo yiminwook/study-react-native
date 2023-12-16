@@ -5,6 +5,9 @@
 1. metro.config.js resolve "cjs", "mjs"
    https://stackoverflow.com/questions/72209822/immer-error-when-using-redux-toolkit-with-react-native-ios
 
+2. codegen ios 12 patch package
+   https://velog.io/@mingbee611/RN-value-is-unavailable-introduced-in-iOS-12.0
+
 # android
 
 1. gradle 권한 추가

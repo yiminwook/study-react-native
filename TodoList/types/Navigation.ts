@@ -4,4 +4,5 @@ export type ScreenProps<T extends keyof RootStackParamList> = NativeStackScreenP
 
 export type RootStackParamList = {
   Main: undefined;
+  Login: undefined;
 };
