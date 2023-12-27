@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { ScreenProps } from '../types/Navigation';
 import ListIcon from '../assets/listIcon.svg';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../models/firebase';
 
 const Login = ({ route, navigation }: ScreenProps<'Login'>) => {
   const [email, setEmail] = useState('');
@@ -26,9 +28,15 @@ const Login = ({ route, navigation }: ScreenProps<'Login'>) => {
     }
   };
 
-  const handleSubmit = () => {
-    console.log('Submit');
+  const handleSignUp = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log('signup user!! >>', user);
+    } catch (error) {
+      console.error(error);
+    }
   };
+  const handleLogin = async () => {};
 
   return (
     <View style={styles.container}>
@@ -50,10 +58,10 @@ const Login = ({ route, navigation }: ScreenProps<'Login'>) => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>로그인</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonOutline]} onPress={() => {}}>
+        <TouchableOpacity style={[styles.button, styles.buttonOutline]} onPress={handleSignUp}>
           <Text style={[styles.buttonText, styles.buttonOutlineText]}>회원가입</Text>
         </TouchableOpacity>
       </View>
