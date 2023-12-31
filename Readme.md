@@ -1,5 +1,7 @@
 ## node -v 16.20.0
 
+## java -version 11.0.21
+
 # RN
 
 1. metro.config.js resolve "cjs", "mjs"
