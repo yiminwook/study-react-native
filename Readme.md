@@ -12,6 +12,8 @@
 
 # android
 
+inspector - cmd + m
+
 1. gradle 권한 추가
    chmod 755 android/gradlew
 
@@ -22,6 +24,8 @@
    https://stackoverflow.com/questions/67683149/react-native-build-error-attempt-to-invoke-virtual-methodboolean-com-facebook
 
 # ios
+
+inspector - cmd + d
 
 1. 'value' is unavailable introduced in ios 12.0
    https://velog.io/@psb7391/RN-Err-value-is-unavailable-introduced-in-ios-12.0

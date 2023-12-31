@@ -1,7 +1,4 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
-export type ScreenProps<T extends keyof AppStackParamList> =
-  NativeStackScreenProps<AppStackParamList, T>;
+// NativeStackScreenProps<AppStackParamList, T>;
 
 export type AppStackParamList = {
   SignIn: undefined;
