@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import TabNavigation from '../components/Navigations/TabNavigation';
-import ScreenNaviagtion from '../components/Navigations/ScreenNaviagtion';
+import AppTab from '../components/Navigations/AppTab';
+import AppStack from '../components/Navigations/AppStack';
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   return (
     <NavigationContainer>
-      <>{isLoggedIn ? <TabNavigation /> : <ScreenNaviagtion />}</>
+      {isLoggedIn ? <AppTab /> : <AppStack />}
     </NavigationContainer>
   );
 }

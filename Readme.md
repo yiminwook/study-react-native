@@ -18,6 +18,9 @@
 2. execution failed for task ':app:processdebugmainmanifest'
    https://borntodevelop.tistory.com/entry/Execution-failed-for-task-appprocessDebugMainManifest
 
+3. Attempt to invoke virtual method'boolean com.facebook.react.uimanager.FabricViewStateManager.hasStateWrappper()
+   https://stackoverflow.com/questions/67683149/react-native-build-error-attempt-to-invoke-virtual-methodboolean-com-facebook
+
 # ios
 
 1. 'value' is unavailable introduced in ios 12.0

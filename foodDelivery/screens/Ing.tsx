@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 
-function Delivery() {
+function Ing() {
   return <View></View>;
 }
 
-export default Delivery;
+export default Ing;

@@ -1,12 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/Navigation';
+import { AppStackParamList } from '../../types/Navigation';
 import SignIn from '../../screens/SignIn';
 import SignUp from '../../screens/SignUp';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<AppStackParamList>();
 
-function ScreenNaviagtion() {
+function AppStack() {
   return (
     <Stack.Navigator initialRouteName="SignIn">
       <Stack.Screen
@@ -23,4 +23,4 @@ function ScreenNaviagtion() {
   );
 }
 
-export default ScreenNaviagtion;
+export default AppStack;
