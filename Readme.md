@@ -15,6 +15,9 @@
 1. gradle 권한 추가
    chmod 755 android/gradlew
 
+2. execution failed for task ':app:processdebugmainmanifest'
+   https://borntodevelop.tistory.com/entry/Execution-failed-for-task-appprocessDebugMainManifest
+
 # ios
 
 1. 'value' is unavailable introduced in ios 12.0
