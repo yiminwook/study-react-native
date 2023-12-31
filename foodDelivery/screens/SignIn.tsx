@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { AppStackParamList } from '../types/Navigation';
+import DismissKeyboardView from '../components/DismissKeyboardView';
 
 function SignIn({
   navigation,
@@ -46,23 +47,24 @@ function SignIn({
   const isDisabled = !email || !password;
 
   return (
-    <View>
+    <DismissKeyboardView>
       <View style={styles.inputBox}>
         <Text style={styles.label}>이메일</Text>
         <TextInput
           style={styles.textInput}
           ref={emailRef}
+          placeholder="이메일을 입력해주세요"
+          placeholderTextColor="#666"
           value={email}
           onChangeText={handleEmail}
-          placeholder="이메일을 입력해주세요"
+          returnKeyType="next"
+          blurOnSubmit={false} //키보드가 내려가지 않도록
+          onSubmitEditing={() => passwordRef.current?.focus()}
+          clearButtonMode="while-editing"
           importantForAutofill="yes" //삼성패스... 등등
           autoComplete="email"
           textContentType="emailAddress"
           keyboardType="email-address"
-          returnKeyType="next"
-          onSubmitEditing={() => passwordRef.current?.focus()}
-          blurOnSubmit={false} //키보드가 내려가지 않도록
-          clearButtonMode="while-editing"
         />
       </View>
       <View style={styles.inputBox}>
@@ -70,15 +72,17 @@ function SignIn({
         <TextInput
           style={styles.textInput}
           ref={passwordRef}
+          placeholder="비밀번호를 입력해주세요"
+          placeholderTextColor="#666"
           value={password}
           onChangeText={handlePassword}
-          placeholder="비밀번호를 입력해주세요"
+          returnKeyType="done"
+          onSubmitEditing={handleSubmit}
+          clearButtonMode="while-editing"
           importantForAutofill="yes" //삼성패스... 등등
           autoComplete="password"
           textContentType="password"
           secureTextEntry={true}
-          returnKeyType="done"
-          clearButtonMode="while-editing"
         />
       </View>
       <View style={styles.buttonBox}>
@@ -95,7 +99,7 @@ function SignIn({
           <Text>회원가입</Text>
         </Pressable>
       </View>
-    </View>
+    </DismissKeyboardView>
   );
 }
 
