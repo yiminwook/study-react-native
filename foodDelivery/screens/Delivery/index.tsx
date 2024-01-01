@@ -2,8 +2,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { View } from 'react-native';
 import { DeliveryParamList } from '../../types/Navigation';
-import Complete from '../../screens/Complete';
-import Ing from '../../screens/Ing';
+import Complete from './Complete';
+import Ing from './Ing';
 
 const Stack = createNativeStackNavigator<DeliveryParamList>();
 

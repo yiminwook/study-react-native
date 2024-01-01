@@ -6,7 +6,7 @@ import SignUp from '../../screens/SignUp';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
-function AppStack() {
+function HomeStack() {
   return (
     <Stack.Navigator initialRouteName="SignIn">
       <Stack.Screen
@@ -23,4 +23,4 @@ function AppStack() {
   );
 }
 
-export default AppStack;
+export default HomeStack;

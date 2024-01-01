@@ -2,12 +2,12 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppTabParmaList } from '../../types/Navigation';
 import Orders from '../../screens/Orders';
-import Delivery from './Delivery';
+import Delivery from '../../screens/Delivery';
 import Settings from '../../screens/Settings';
 
 const Tab = createBottomTabNavigator<AppTabParmaList>();
 
-function AppTab() {
+function HomeTab() {
   return (
     <Tab.Navigator initialRouteName="Orders">
       <Tab.Screen
@@ -29,4 +29,4 @@ function AppTab() {
   );
 }
 
-export default AppTab;
+export default HomeTab;
