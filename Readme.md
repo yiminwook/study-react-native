@@ -10,6 +10,9 @@
 2. codegen ios 12 patch package
    https://velog.io/@mingbee611/RN-value-is-unavailable-introduced-in-iOS-12.0
 
+3. 빌드 캐시 삭제
+   ./gradlew clean
+
 # android
 
 inspector - cmd + m
@@ -29,3 +32,6 @@ inspector - cmd + d
 
 1. 'value' is unavailable introduced in ios 12.0
    https://velog.io/@psb7391/RN-Err-value-is-unavailable-introduced-in-ios-12.0
+
+2. 빌드캐시 삭제 (.env config가 바뀌지 않을때)
+   xCode shift + cmd + k 로 빌드파일 삭제
