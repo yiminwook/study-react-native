@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   Pressable,
   StyleSheet,
@@ -10,41 +11,75 @@ import {
 } from 'react-native';
 import { AppStackParamList } from '../types/Navigation';
 import DismissKeyboardView from '../components/DismissKeyboardView';
+import axios from 'axios';
+import Config from 'react-native-config';
 
 function SignIn({
   navigation,
 }: NativeStackScreenProps<AppStackParamList, 'SignIn'>) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
 
   const handleEmail = (text: string) => setEmail(() => text);
   const handlePassword = (text: string) => setPassword(() => text);
 
-  const handleSubmit = () => {
+  const validateInput = () => {
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
     if (!trimmedEmail) {
-      Alert.alert('알림', '이메일을 입력해주세요');
       emailRef.current?.focus();
-      return;
+      throw new Error('이메일을 입력해주세요');
     }
 
     if (!trimmedPassword) {
-      Alert.alert('알림', '비밀번호를 입력해주세요');
       passwordRef.current?.focus();
-      return;
+      throw new Error('비밀번호를 입력해주세요');
     }
+  };
 
-    Alert.alert('알림', '로그인 되었습니다');
+  const handleSubmit = async () => {
+    try {
+      if (isLoading) {
+        return;
+      }
+      setIsLoading(() => true);
+      validateInput();
+
+      const res = await axios({
+        method: 'get',
+        url: `${Config.API_URL}`,
+        // data: {
+        //   email: email.trim(),
+        //   password: password.trim(),
+        // },
+      });
+
+      const data = res.data;
+      console.log('signInData', data);
+      Alert.alert('알림', '로그인 되었습니다');
+    } catch (error) {
+      console.error(error);
+
+      if (axios.isAxiosError(error)) {
+        Alert.alert('알림', error.response?.data.message || '통신에러');
+      }
+
+      const message = error instanceof Error ? error.message : 'unkown error';
+      Alert.alert('알림', message);
+    } finally {
+      setIsLoading(() => false);
+    }
   };
 
   const navigateSignUp = () => {
     navigation.navigate('SignUp');
   };
 
-  const isDisabled = !email || !password;
+  const isDisabled = !email || !password || isLoading;
 
   return (
     <DismissKeyboardView>
@@ -93,7 +128,11 @@ function SignIn({
           ]}
           onPress={handleSubmit}
           disabled={isDisabled}>
-          <Text style={styles.loginButtonText}>로그인</Text>
+          {isLoading ? (
+            <ActivityIndicator color="#FAFAFA" style={{ width: 16 * 3 }} />
+          ) : (
+            <Text style={styles.loginButtonText}>로그인</Text>
+          )}
         </Pressable>
         <Pressable onPress={navigateSignUp}>
           <Text>회원가입</Text>

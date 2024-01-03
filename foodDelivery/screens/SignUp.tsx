@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   Pressable,
   StyleSheet,
@@ -11,11 +12,14 @@ import {
 import { AppStackParamList } from '../types/Navigation';
 import { checkEmail, checkPassword } from '../utils/regexp';
 import DismissKeyboardView from '../components/DismissKeyboardView';
+import axios from 'axios';
+import Config from 'react-native-config';
 
 function SignUp({}: NativeStackScreenProps<AppStackParamList, 'SignUp'>) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const emailRef = useRef<TextInput>(null);
   const nameRef = useRef<TextInput>(null);
@@ -25,43 +29,72 @@ function SignUp({}: NativeStackScreenProps<AppStackParamList, 'SignUp'>) {
   const handleName = (text: string) => setName(() => text);
   const handlePassword = (text: string) => setPassword(() => text);
 
-  const handleSubmit = () => {
+  const validateInput = () => {
     const trimmedEmail = email.trim();
     const trimmedName = name.trim();
     const trimmedPassword = password.trim();
+
     if (!trimmedEmail) {
-      Alert.alert('알림', '이메일을 입력해주세요');
       emailRef.current?.focus();
-      return;
+      throw new Error('이메일을 입력해주세요');
     }
     if (checkEmail(trimmedEmail) === false) {
-      Alert.alert('알림', '이메일 형식을 확인해주세요');
       emailRef.current?.focus();
-      return;
+      throw new Error('이메일 형식을 확인해주세요');
     }
     if (!trimmedName) {
-      Alert.alert('알림', '이름을 입력해주세요');
       nameRef.current?.focus();
-      return;
+      throw new Error('이름을 입력해주세요');
     }
     if (!trimmedPassword) {
-      Alert.alert('알림', '비밀번호를 입력해주세요');
       passwordRef.current?.focus();
-      return;
+      throw new Error('비밀번호를 입력해주세요');
     }
     if (checkPassword(trimmedPassword) === false) {
-      Alert.alert(
-        '알림',
+      passwordRef.current?.focus();
+      throw new Error(
         '비밀번호는 영문,숫자,특수문자($@^!%*#?&)를 모두 포함하여 8자 이상 입력해야합니다.',
       );
-      passwordRef.current?.focus();
-      return;
     }
-
-    Alert.alert('알림', '회원가입 되었습니다');
   };
 
-  const isDisabled = !email || !name || !password;
+  const handleSubmit = async () => {
+    try {
+      if (isLoading) {
+        return;
+      }
+
+      setIsLoading(() => true);
+      validateInput();
+      const res = await axios({
+        method: 'post',
+        url: `${Config.API_URL}/user`,
+        data: {
+          email: email.trim(),
+          name: name.trim(),
+          password: password.trim(),
+        },
+      });
+
+      const data = res.data;
+      console.log('signUpData', data);
+      Alert.alert('알림', '회원가입 되었습니다');
+    } catch (error) {
+      console.error(error);
+
+      if (axios.isAxiosError(error)) {
+        Alert.alert('알림', error.response?.data.message || '통신에러');
+        return;
+      }
+
+      const message = error instanceof Error ? error.message : 'unknow error';
+      Alert.alert('알림', message);
+    } finally {
+      setIsLoading(() => false);
+    }
+  };
+
+  const isDisabled = !email || !name || !password || isLoading;
 
   return (
     <DismissKeyboardView>
@@ -128,7 +161,11 @@ function SignUp({}: NativeStackScreenProps<AppStackParamList, 'SignUp'>) {
           ]}
           onPress={handleSubmit}
           disabled={isDisabled}>
-          <Text style={styles.signUpButtonText}>회원가입</Text>
+          {isLoading ? (
+            <ActivityIndicator color="#FAFAFA" style={{ width: 16 * 4 }} />
+          ) : (
+            <Text style={styles.signUpButtonText}>회원가입</Text>
+          )}
         </Pressable>
       </View>
     </DismissKeyboardView>
