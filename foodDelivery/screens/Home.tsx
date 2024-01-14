@@ -9,6 +9,7 @@ import { API_URL } from '../consts';
 import useSocket from '../hooks/useSocket';
 import userSlice, { IUser } from '../redux/slice/user';
 import { useDispatch, useSelector } from '../redux/store';
+import SplashScreen from 'react-native-splash-screen';
 
 function Home() {
   const isLoggedIn = useSelector(state => !!state.user.email);
@@ -19,7 +20,11 @@ function Home() {
     try {
       const refreshToken = await EncryptedStorage.getItem('refreshToken');
 
-      if (!refreshToken) return;
+      if (!refreshToken) {
+        SplashScreen.hide();
+        return;
+      }
+
       const response = await axios({
         method: 'POST',
         url: `${API_URL}/refreshToken`,
@@ -39,6 +44,9 @@ function Home() {
           Alert.alert('알림', '로그인이 만료되었습니다. 다시 로그인해주세요.');
         }
       }
+    } finally {
+      // 스플레시 스크린을 지운다.
+      SplashScreen.hide();
     }
   };
 

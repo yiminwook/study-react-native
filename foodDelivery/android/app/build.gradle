@@ -1,6 +1,6 @@
 apply plugin: "com.android.application"
 
-//react-native-config
+// react-native-config
 apply plugin: "com.android.application"
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
@@ -198,7 +198,8 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-
+    // react-native-spash-screen
+    implementation project(':react-native-splash-screen')
     // Error: resolve
     // Attempt to invoke virtual method'boolean com.facebook.react.uimanager.FabricViewStateManager.hasStateWrappper()
     implementation ("androidx.appcompat:appcompat:1.3.1") {
