@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -13,9 +12,10 @@ import {
 import { AppStackParamList } from '../types/Navigation';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import axios from 'axios';
-import Config from 'react-native-config';
 import { useDispatch } from '../redux/store';
 import userSlice from '../redux/slice/user';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import { API_URL } from '../consts';
 
 function SignIn({
   navigation,
@@ -53,9 +53,7 @@ function SignIn({
 
       const res = await axios({
         method: 'POST',
-        url: `${
-          Platform.OS === 'ios' ? Config.IOS_API_URL : Config.AND_API_URL
-        }/login`,
+        url: `${API_URL}/login`,
         data: {
           email: email.trim(),
           password: password.trim(),
@@ -72,9 +70,13 @@ function SignIn({
 
       dispatch(
         userSlice.actions.setUser({
-          ...data,
+          name: data.name,
+          email: data.email,
+          accessToken: data.accessToken,
         }),
       );
+
+      await EncryptedStorage.setItem('refreshToken', data.refreshToken);
       console.log('signInData', data);
       Alert.alert('알림', '로그인 되었습니다');
     } catch (error) {

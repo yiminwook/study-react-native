@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -14,7 +13,7 @@ import { AppStackParamList } from '../types/Navigation';
 import { checkEmail, checkPassword } from '../utils/regexp';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import axios from 'axios';
-import Config from 'react-native-config';
+import { API_URL } from '../consts';
 
 function SignUp({
   navigation,
@@ -71,9 +70,7 @@ function SignUp({
       validateInput();
       const res = await axios({
         method: 'post',
-        url: `${
-          Platform.OS === 'ios' ? Config.IOS_API_URL : Config.AND_API_URL
-        }/user`,
+        url: `${API_URL}/user`,
         data: {
           email: email.trim(),
           name: name.trim(),

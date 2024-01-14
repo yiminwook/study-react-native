@@ -4,14 +4,12 @@ const initialState = {
   name: '',
   email: '',
   accessToken: '',
-  refreshToken: '',
 };
 
 type SetUserAction = PayloadAction<{
   name: string;
   email: string;
   accessToken: string;
-  refreshToken: string;
 }>;
 
 const userSlice = createSlice({
