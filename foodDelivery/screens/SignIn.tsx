@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import {
   ActivityIndicator,
@@ -9,13 +10,12 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { AppStackParamList } from '../types/Navigation';
-import DismissKeyboardView from '../components/DismissKeyboardView';
-import axios from 'axios';
-import { useDispatch } from '../redux/store';
-import userSlice from '../redux/slice/user';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import DismissKeyboardView from '../components/DismissKeyboardView';
 import { API_URL } from '../consts';
+import userSlice from '../redux/slice/user';
+import { useDispatch } from '../redux/store';
+import { AppStackParamList } from '../types/Navigation';
 
 function SignIn({
   navigation,

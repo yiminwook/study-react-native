@@ -13,6 +13,9 @@
 3. 빌드 캐시 삭제
    ./gradlew clean
 
+4. import 순서정리 vsCode 단축키
+   shift + option + O
+
 # android
 
 inspector - cmd + m
