@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -15,7 +16,9 @@ import DismissKeyboardView from '../components/DismissKeyboardView';
 import axios from 'axios';
 import Config from 'react-native-config';
 
-function SignUp({}: NativeStackScreenProps<AppStackParamList, 'SignUp'>) {
+function SignUp({
+  navigation,
+}: NativeStackScreenProps<AppStackParamList, 'SignUp'>) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -68,7 +71,9 @@ function SignUp({}: NativeStackScreenProps<AppStackParamList, 'SignUp'>) {
       validateInput();
       const res = await axios({
         method: 'post',
-        url: `${Config.API_URL}/user`,
+        url: `${
+          Platform.OS === 'ios' ? Config.IOS_API_URL : Config.AND_API_URL
+        }/user`,
         data: {
           email: email.trim(),
           name: name.trim(),
@@ -77,9 +82,12 @@ function SignUp({}: NativeStackScreenProps<AppStackParamList, 'SignUp'>) {
       });
 
       const data = res.data;
+      setIsLoading(() => false);
       console.log('signUpData', data);
       Alert.alert('알림', '회원가입 되었습니다');
+      navigation.navigate('SignIn');
     } catch (error) {
+      setIsLoading(() => false);
       console.error(error);
 
       if (axios.isAxiosError(error)) {
@@ -89,8 +97,6 @@ function SignUp({}: NativeStackScreenProps<AppStackParamList, 'SignUp'>) {
 
       const message = error instanceof Error ? error.message : 'unknow error';
       Alert.alert('알림', message);
-    } finally {
-      setIsLoading(() => false);
     }
   };
 

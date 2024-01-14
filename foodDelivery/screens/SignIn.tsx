@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -13,6 +14,8 @@ import { AppStackParamList } from '../types/Navigation';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import axios from 'axios';
 import Config from 'react-native-config';
+import { useDispatch } from '../redux/store';
+import userSlice from '../redux/slice/user';
 
 function SignIn({
   navigation,
@@ -26,6 +29,7 @@ function SignIn({
 
   const handleEmail = (text: string) => setEmail(() => text);
   const handlePassword = (text: string) => setPassword(() => text);
+  const dispatch = useDispatch();
 
   const validateInput = () => {
     const trimmedEmail = email.trim();
@@ -43,35 +47,47 @@ function SignIn({
 
   const handleSubmit = async () => {
     try {
-      if (isLoading) {
-        return;
-      }
+      if (isLoading) return;
       setIsLoading(() => true);
       validateInput();
 
       const res = await axios({
-        method: 'get',
-        url: `${Config.API_URL}`,
-        // data: {
-        //   email: email.trim(),
-        //   password: password.trim(),
-        // },
+        method: 'POST',
+        url: `${
+          Platform.OS === 'ios' ? Config.IOS_API_URL : Config.AND_API_URL
+        }/login`,
+        data: {
+          email: email.trim(),
+          password: password.trim(),
+        },
       });
 
-      const data = res.data;
+      const data: {
+        name: string;
+        email: string;
+        accessToken: string;
+        refreshToken: string;
+      } = res.data.data;
+      setIsLoading(() => false);
+
+      dispatch(
+        userSlice.actions.setUser({
+          ...data,
+        }),
+      );
       console.log('signInData', data);
       Alert.alert('알림', '로그인 되었습니다');
     } catch (error) {
+      setIsLoading(() => false);
       console.error(error);
 
       if (axios.isAxiosError(error)) {
         Alert.alert('알림', error.response?.data.message || '통신에러');
+        return;
       }
 
       const message = error instanceof Error ? error.message : 'unkown error';
       Alert.alert('알림', message);
-    } finally {
-      setIsLoading(() => false);
     }
   };
 
