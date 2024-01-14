@@ -10,5 +10,6 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     'react/self-closing-comp': 'off',
     curly: 'off',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 };

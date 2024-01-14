@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
-import EncryptedStorage from 'react-native-encrypted-storage/lib/typescript/EncryptedStorage';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import { API_URL } from '../consts';
 import userSlice from '../redux/slice/user';
 import { useDispatch, useSelector } from '../redux/store';
@@ -15,7 +15,7 @@ function Settings() {
         url: `${API_URL}/logout`,
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          authorization: `Bearer ${accessToken}`,
         },
         data: {},
       });

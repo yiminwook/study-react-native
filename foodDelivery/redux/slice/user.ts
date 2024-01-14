@@ -1,16 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+export type IUser = typeof initialState;
+type SetUserAction = PayloadAction<IUser>;
+
 const initialState = {
   name: '',
   email: '',
   accessToken: '',
 };
-
-type SetUserAction = PayloadAction<{
-  name: string;
-  email: string;
-  accessToken: string;
-}>;
 
 const userSlice = createSlice({
   name: 'user',

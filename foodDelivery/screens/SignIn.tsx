@@ -13,7 +13,7 @@ import {
 import EncryptedStorage from 'react-native-encrypted-storage';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import { API_URL } from '../consts';
-import userSlice from '../redux/slice/user';
+import userSlice, { IUser } from '../redux/slice/user';
 import { useDispatch } from '../redux/store';
 import { AppStackParamList } from '../types/Navigation';
 
@@ -60,10 +60,7 @@ function SignIn({
         },
       });
 
-      const data: {
-        name: string;
-        email: string;
-        accessToken: string;
+      const data: IUser & {
         refreshToken: string;
       } = res.data.data;
       setIsLoading(() => false);
