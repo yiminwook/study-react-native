@@ -5,7 +5,7 @@ import { API_URL } from '../consts';
 /** 전역변수 */
 let socket: Socket | undefined;
 
-const useSocket = () => {
+const useSocket = (): [Socket | undefined, () => void] => {
   const disConnect = useCallback(() => {
     if (socket) {
       socket = undefined;
