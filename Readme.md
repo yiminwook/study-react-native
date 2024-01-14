@@ -26,6 +26,8 @@ inspector - cmd + m
 3. Attempt to invoke virtual method'boolean com.facebook.react.uimanager.FabricViewStateManager.hasStateWrappper()
    https://stackoverflow.com/questions/67683149/react-native-build-error-attempt-to-invoke-virtual-methodboolean-com-facebook
 
+4. localhost 주소 http://10.0.2.2
+
 # ios
 
 inspector - cmd + d
