@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "patch-package",
     "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator='iPhone 12 Pro'",
+    "ios": "react-native run-ios --simulator='iPhone 12 Pro 16.4'",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
