@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import userSlice from '../slice/user';
+import orderSlice from '../slice/order';
 
 const store = configureStore({
   reducer: {
     user: userSlice.reducer,
+    order: orderSlice.reducer,
   },
   middleware: getDefaultMiddleware => {
     if (__DEV__) {

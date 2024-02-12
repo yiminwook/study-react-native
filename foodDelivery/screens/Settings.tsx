@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React from 'react';
+import axios, { AxiosResponse } from 'axios';
+import React, { useEffect } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { API_URL } from '../consts';
@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from '../redux/store';
 
 function Settings() {
   const accessToken = useSelector(state => state.user.accessToken);
+  const money = useSelector(state => state.user.money);
+  const name = useSelector(state => state.user.name);
+
   const dispatch = useDispatch();
   const handleLogout = async () => {
     try {
@@ -30,8 +33,37 @@ function Settings() {
     }
   };
 
+  useEffect(() => {
+    const getMony = async () => {
+      try {
+        const response: AxiosResponse<{ data: number }> = await axios({
+          method: 'GET',
+          url: `${API_URL}/showmethemoney`,
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        dispatch(userSlice.actions.setMoney(response.data.data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getMony();
+  }, [accessToken, dispatch]);
+
   return (
     <View style={styles.buttonBox}>
+      <View style={styles.money}>
+        <Text style={styles.moneyText}>
+          {name}님의 수익금{' '}
+          <Text style={{ fontWeight: 'bold' }}>
+            {money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          </Text>
+          원
+        </Text>
+      </View>
       <Pressable
         //배열로도 가능
         style={StyleSheet.compose(
@@ -48,6 +80,12 @@ function Settings() {
 export default Settings;
 
 const styles = StyleSheet.create({
+  money: {
+    padding: 20,
+  },
+  moneyText: {
+    fontSize: 16,
+  },
   buttonBox: {
     alignItems: 'center',
     paddingTop: 20,
