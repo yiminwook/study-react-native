@@ -13,7 +13,6 @@ target 'FoodDeliveryApp' do
   )
 
   # react-native-splash-screen
-  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
   target 'FoodDeliveryAppTests' do
     inherit! :complete
