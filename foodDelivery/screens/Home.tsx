@@ -10,6 +10,7 @@ import useSocket from '../hooks/useSocket';
 import userSlice, { IUser } from '../redux/slice/user';
 import { useDispatch, useSelector } from '../redux/store';
 import SplashScreen from 'react-native-splash-screen';
+import orderSlice, { Order } from '../redux/slice/order';
 
 function Home() {
   const isLoggedIn = useSelector(state => !!state.user.email);
@@ -56,10 +57,8 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    const listener = (data: any) => {
-      console.log('order >> ', data);
-      const error = data?.io?.$error?.[0];
-      if (error) console.error(error);
+    const listener = (data: Order) => {
+      dispatch(orderSlice.actions.addOrder(data));
     };
 
     if (socket && isLoggedIn) {
@@ -73,7 +72,7 @@ function Home() {
         socket.off('order', listener);
       }
     };
-  }, [socket, isLoggedIn]);
+  }, [socket, isLoggedIn, dispatch]);
 
   useEffect(() => {
     if (!isLoggedIn) {
