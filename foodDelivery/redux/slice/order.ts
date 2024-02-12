@@ -30,8 +30,30 @@ const orderSlice = createSlice({
     addOrder: (state, action: PayloadAction<Order>) => {
       state.orders.push(action.payload);
     },
-    acceptOrder: (state, action) => {},
-    rejectOrder: (state, action) => {},
+    acceptOrder: (state, action: PayloadAction<string>) => {
+      const index = state.orders.findIndex(
+        order => order.orderId === action.payload,
+      );
+      if (index > -1) {
+        state.deliveries.push(state.orders[index]);
+        state.orders.splice(index, 1);
+      }
+    },
+    rejectOrder: (state, action: PayloadAction<string>) => {
+      const orderIndex = state.orders.findIndex(
+        order => order.orderId === action.payload,
+      );
+      if (orderIndex > -1) {
+        state.orders.splice(orderIndex, 1);
+      }
+
+      const deliveryIndex = state.deliveries.findIndex(
+        order => order.orderId === action.payload,
+      );
+      if (deliveryIndex > -1) {
+        state.deliveries.splice(deliveryIndex, 1);
+      }
+    },
   },
   extraReducers: builder => {},
 });
