@@ -1,16 +1,16 @@
+import HomeStack from '@/components/Navigations/HomeStack';
+import HomeTab from '@/components/Navigations/HomeTab';
+import { API_URL } from '@/consts';
+import useSocket from '@/hooks/useSocket';
+import orderSlice, { Order } from '@/redux/slice/order';
+import userSlice, { IUser } from '@/redux/slice/user';
+import { useDispatch, useSelector } from '@/redux/store';
 import { NavigationContainer } from '@react-navigation/native';
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { Alert } from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
-import HomeStack from '../components/Navigations/HomeStack';
-import HomeTab from '../components/Navigations/HomeTab';
-import { API_URL } from '../consts';
-import useSocket from '../hooks/useSocket';
-import userSlice, { IUser } from '../redux/slice/user';
-import { useDispatch, useSelector } from '../redux/store';
 import SplashScreen from 'react-native-splash-screen';
-import orderSlice, { Order } from '../redux/slice/order';
 
 function Home() {
   const isLoggedIn = useSelector(state => !!state.user.email);

@@ -1,5 +1,10 @@
+import DismissKeyboardView from '@/components/DismissKeyboardView';
+import { API_URL } from '@/consts';
+import userSlice from '@/redux/slice/user';
+import { useDispatch } from '@/redux/store';
+import { AppStackParamList } from '@/types/Navigation';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React, { useRef, useState } from 'react';
 import {
   ActivityIndicator,
@@ -11,11 +16,6 @@ import {
   View,
 } from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
-import DismissKeyboardView from '../components/DismissKeyboardView';
-import { API_URL } from '../consts';
-import userSlice, { IUser } from '../redux/slice/user';
-import { useDispatch } from '../redux/store';
-import { AppStackParamList } from '../types/Navigation';
 
 function SignIn({
   navigation,
@@ -51,7 +51,14 @@ function SignIn({
       setIsLoading(() => true);
       validateInput();
 
-      const res = await axios({
+      const res: AxiosResponse<{
+        data: {
+          name: string;
+          email: string;
+          accessToken: string;
+          refreshToken: string;
+        };
+      }> = await axios({
         method: 'POST',
         url: `${API_URL}/login`,
         data: {
@@ -60,21 +67,23 @@ function SignIn({
         },
       });
 
-      const data: IUser & {
-        refreshToken: string;
-      } = res.data.data;
       setIsLoading(() => false);
 
       dispatch(
         userSlice.actions.setUser({
-          name: data.name,
-          email: data.email,
-          accessToken: data.accessToken,
+          name: res.data.data.name,
+          email: res.data.data.email,
+          accessToken: res.data.data.accessToken,
+          money: 0,
         }),
       );
 
-      await EncryptedStorage.setItem('refreshToken', data.refreshToken);
-      console.log('signInData', data);
+      await EncryptedStorage.setItem(
+        'refreshToken',
+        res.data.data.refreshToken,
+      );
+
+      console.log('signInData', res.data);
       Alert.alert('알림', '로그인 되었습니다');
     } catch (error) {
       setIsLoading(() => false);
