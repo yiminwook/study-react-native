@@ -5,7 +5,7 @@ export type AppStackParamList = {
   SignUp: undefined;
 };
 
-export type AppTabParmaList = {
+export type AppTabParamList = {
   Orders: undefined;
   Settings: undefined;
   Delivery: undefined;
