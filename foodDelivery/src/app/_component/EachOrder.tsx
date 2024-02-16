@@ -3,9 +3,9 @@ import orderSlice, { Order } from '@/redux/slice/order';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector } from '@/redux/store';
 import axios from 'axios';
-import { API_URL } from '@/consts';
+import { API_URL } from '@/const';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { AppTabParamList } from '@/types/Navigation';
+import { AppTabParamList } from '@/type/Navigation';
 
 interface EachOrderProps {
   item: Order;

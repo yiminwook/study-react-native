@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { Socket, io } from 'socket.io-client';
-import { API_URL } from '../consts';
+import { API_URL } from '../const';
 
 /** 전역변수 */
 let socket: Socket | undefined;

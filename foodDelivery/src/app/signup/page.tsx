@@ -9,13 +9,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { AppStackParamList } from '../types/Navigation';
-import { checkEmail, checkPassword } from '../utils/regexp';
-import DismissKeyboardView from '../components/DismissKeyboardView';
+import { AppStackParamList } from '@src/type/Navigation';
+import { checkEmail, checkPassword } from '@src/util/regexp';
+import DismissKeyboardView from '../_component/DismissKeyboardView';
 import axios from 'axios';
-import { API_URL } from '../consts';
+import { API_URL } from '@src/const';
 
-function SignUp({
+export default function SignUp({
   navigation,
 }: NativeStackScreenProps<AppStackParamList, 'SignUp'>) {
   const [email, setEmail] = useState('');
@@ -206,5 +206,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-export default SignUp;

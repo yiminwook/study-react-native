@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import userSlice from '@/redux/slice/user';
-import orderSlice from '@/redux/slice/order';
+import userSlice from '../slice/user';
+import orderSlice from '../slice/order';
 
 const store = configureStore({
   reducer: {

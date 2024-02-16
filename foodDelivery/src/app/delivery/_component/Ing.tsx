@@ -1,8 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 
-function Ing() {
+export default function Ing() {
   return <View></View>;
 }
-
-export default Ing;

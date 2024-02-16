@@ -1,13 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { View } from 'react-native';
-import { DeliveryParamList } from '../../types/Navigation';
-import Complete from './Complete';
-import Ing from './Ing';
+import { DeliveryParamList } from '@src/type/Navigation';
+import Complete from './_component/Complete';
+import Ing from './_component/Ing';
 
 const Stack = createNativeStackNavigator<DeliveryParamList>();
 
-function Delivery() {
+export default function Delivery() {
   return (
     <Stack.Navigator initialRouteName="Ing">
       <Stack.Screen
@@ -23,5 +23,3 @@ function Delivery() {
     </Stack.Navigator>
   );
 }
-
-export default Delivery;

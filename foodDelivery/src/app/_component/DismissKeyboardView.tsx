@@ -9,7 +9,7 @@ interface DismissKeyboardViewProps extends KeyboardAwareScrollViewProps {
   children: React.ReactNode;
 }
 
-function DismissKeyboardView({
+export default function DismissKeyboardView({
   children,
   style,
   ...props
@@ -25,5 +25,3 @@ function DismissKeyboardView({
     </TouchableWithoutFeedback>
   );
 }
-
-export default DismissKeyboardView;

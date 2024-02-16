@@ -1,18 +1,18 @@
-import HomeStack from '@/components/Navigations/HomeStack';
-import HomeTab from '@/components/Navigations/HomeTab';
-import { API_URL } from '@/consts';
-import useSocket from '@/hooks/useSocket';
-import orderSlice, { Order } from '@/redux/slice/order';
-import userSlice, { IUser } from '@/redux/slice/user';
-import { useDispatch, useSelector } from '@/redux/store';
+import { API_URL } from '@src/const';
+import useSocket from '@src/hook/useSocket';
+import orderSlice, { Order } from '@src/redux/slice/order';
+import userSlice, { IUser } from '@src/redux/slice/user';
+import { useDispatch, useSelector } from '@src/redux/store';
 import { NavigationContainer } from '@react-navigation/native';
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { Alert } from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import SplashScreen from 'react-native-splash-screen';
+import HomeStack from './_component/HomeStack';
+import HomeTab from './_component/HomeTab';
 
-function Home() {
+export default function Home() {
   const isLoggedIn = useSelector(state => !!state.user.email);
   const dispatch = useDispatch();
   const [socket, disconnect] = useSocket();
@@ -86,5 +86,3 @@ function Home() {
     </NavigationContainer>
   );
 }
-
-export default Home;

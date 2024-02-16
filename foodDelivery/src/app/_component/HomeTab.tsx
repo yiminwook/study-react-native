@@ -1,9 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AppTabParamList } from '../../types/Navigation';
-import Orders from '../../screens/Orders';
-import Delivery from '../../screens/Delivery';
-import Settings from '../../screens/Settings';
+import { AppTabParamList } from '@src/type/Navigation';
+import Orders from '@app/orders/page';
+import Page from '@app/delivery/page';
+import Settings from '@app/settings/page';
 
 const Tab = createBottomTabNavigator<AppTabParamList>();
 
@@ -17,7 +17,7 @@ function HomeTab() {
       />
       <Tab.Screen
         name="Delivery"
-        component={Delivery}
+        component={Page}
         options={{ headerShown: false, unmountOnBlur: true }}
       />
       <Tab.Screen

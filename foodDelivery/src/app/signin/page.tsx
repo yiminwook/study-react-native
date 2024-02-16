@@ -1,8 +1,8 @@
-import DismissKeyboardView from '@/components/DismissKeyboardView';
-import { API_URL } from '@/consts';
-import userSlice from '@/redux/slice/user';
-import { useDispatch } from '@/redux/store';
-import { AppStackParamList } from '@/types/Navigation';
+import DismissKeyboardView from '@app/_component/DismissKeyboardView';
+import { API_URL } from '@src/const';
+import userSlice from '@src/redux/slice/user';
+import { useDispatch } from '@src/redux/store';
+import { AppStackParamList } from '@src/type/Navigation';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import axios, { AxiosResponse } from 'axios';
 import React, { useRef, useState } from 'react';
@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
-function SignIn({
+export default function SignIn({
   navigation,
 }: NativeStackScreenProps<AppStackParamList, 'SignIn'>) {
   const [email, setEmail] = useState('');
@@ -192,5 +192,3 @@ const styles = StyleSheet.create({
   loginButtonActive: { backgroundColor: 'blue' },
   loginButtonText: { color: 'white', fontSize: 16 },
 });
-
-export default SignIn;

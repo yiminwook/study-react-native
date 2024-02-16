@@ -1,14 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from '@/redux/store';
-import Home from '@screens/Home';
+import store from '@src/redux/store';
+import Home from './page';
 
-const App = () => {
+export default function RootLayout() {
   return (
     <Provider store={store}>
       <Home />
     </Provider>
   );
-};
-
-export default App;
+}

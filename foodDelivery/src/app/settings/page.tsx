@@ -2,11 +2,11 @@ import axios, { AxiosResponse } from 'axios';
 import React, { useEffect } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
-import { API_URL } from '@/consts';
-import userSlice from '@/redux/slice/user';
-import { useDispatch, useSelector } from '@/redux/store';
+import { API_URL } from '@src/const';
+import userSlice from '@src/redux/slice/user';
+import { useDispatch, useSelector } from '@src/redux/store';
 
-function Settings() {
+export default function Settings() {
   const accessToken = useSelector(state => state.user.accessToken);
   const money = useSelector(state => state.user.money);
   const name = useSelector(state => state.user.name);
@@ -76,8 +76,6 @@ function Settings() {
     </View>
   );
 }
-
-export default Settings;
 
 const styles = StyleSheet.create({
   money: {

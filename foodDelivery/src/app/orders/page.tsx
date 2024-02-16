@@ -1,6 +1,6 @@
-import EachOrder from '@/components/EachOrder';
-import { Order } from '@/redux/slice/order';
-import { useSelector } from '@/redux/store';
+import EachOrder from '@app/_component/EachOrder';
+import { Order } from '@src/redux/slice/order';
+import { useSelector } from '@src/redux/store';
 import React, { useCallback } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
