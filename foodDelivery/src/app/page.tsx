@@ -1,8 +1,8 @@
-import { API_URL } from '@src/const';
-import useSocket from '@src/hook/useSocket';
-import orderSlice, { Order } from '@src/redux/slice/order';
-import userSlice, { IUser } from '@src/redux/slice/user';
-import { useDispatch, useSelector } from '@src/redux/store';
+import { API_URL } from '@/const';
+import useSocket from '@/hook/useSocket';
+import orderSlice, { Order } from '@/redux/slice/order';
+import userSlice, { IUser } from '@/redux/slice/user';
+import { useDispatch, useSelector } from '@/redux/store';
 import { NavigationContainer } from '@react-navigation/native';
 import axios from 'axios';
 import React, { useEffect } from 'react';
@@ -20,7 +20,6 @@ export default function Home() {
   const getTokenAndRefresh = async () => {
     try {
       const refreshToken = await EncryptedStorage.getItem('refreshToken');
-
       if (!refreshToken) {
         SplashScreen.hide();
         return;
@@ -38,10 +37,10 @@ export default function Home() {
       const data: IUser = response.data.data;
       dispatch(userSlice.actions.setUser({ ...data }));
     } catch (error) {
-      console.error(error);
+      console.log(error);
       if (axios.isAxiosError(error)) {
+        EncryptedStorage.removeItem('refreshToken');
         if (error.response?.data.code === 'expired') {
-          EncryptedStorage.removeItem('refreshToken');
           Alert.alert('알림', '로그인이 만료되었습니다. 다시 로그인해주세요.');
         }
       }

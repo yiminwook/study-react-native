@@ -9,11 +9,11 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { AppStackParamList } from '@src/type/Navigation';
-import { checkEmail, checkPassword } from '@src/util/regexp';
+import { AppStackParamList } from '@/type/Navigation';
+import { checkEmail, checkPassword } from '@/util/regexp';
 import DismissKeyboardView from '../_component/DismissKeyboardView';
 import axios from 'axios';
-import { API_URL } from '@src/const';
+import { API_URL } from '@/const';
 
 export default function SignUp({
   navigation,

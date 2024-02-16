@@ -1,8 +1,8 @@
 import DismissKeyboardView from '@app/_component/DismissKeyboardView';
-import { API_URL } from '@src/const';
-import userSlice from '@src/redux/slice/user';
-import { useDispatch } from '@src/redux/store';
-import { AppStackParamList } from '@src/type/Navigation';
+import { API_URL } from '@/const';
+import userSlice from '@/redux/slice/user';
+import { useDispatch } from '@/redux/store';
+import { AppStackParamList } from '@/type/Navigation';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import axios, { AxiosResponse } from 'axios';
 import React, { useRef, useState } from 'react';

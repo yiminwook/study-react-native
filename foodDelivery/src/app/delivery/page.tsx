@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { View } from 'react-native';
-import { DeliveryParamList } from '@src/type/Navigation';
+import { DeliveryParamList } from '@/type/Navigation';
 import Complete from './_component/Complete';
 import Ing from './_component/Ing';
 

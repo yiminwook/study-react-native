@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AppTabParamList } from '@src/type/Navigation';
+import { AppTabParamList } from '@/type/Navigation';
 import Orders from '@app/orders/page';
 import Page from '@app/delivery/page';
 import Settings from '@app/settings/page';
